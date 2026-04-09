@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public float mouseSensitivity = 100;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -11,21 +13,9 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            transform.position += (Vector3)Vector2.left;
-        }
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            transform.position += (Vector3)Vector2.right;
-        }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            transform.position += (Vector3)Vector2.up;
-        }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            transform.position += (Vector3) Vector2.down;
-        }
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity / 100;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity / 100;
+
+        transform.position += new Vector3(mouseX, mouseY);
     }
 }

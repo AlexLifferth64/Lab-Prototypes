@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
 
     private Vector2 curPos;
     private int length;
-    private int height = 5;
+    private int height = 10;
 
-    private float timeLeft = 5;
+    private float timeLeft = 8;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI gameOverText;
@@ -39,20 +39,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.position == finishBlock.position)
+        if(player.transform.position.x <= finishBlock.transform.position.x + 0.75f && player.transform.position.x >= finishBlock.transform.position.x - 0.75f
+                    && player.transform.position.y <= finishBlock.transform.position.y + 0.75f && player.transform.position.y >= finishBlock.transform.position.y - 0.75f)
         {
             NewLevel();
         }
-        else if(player.position == startBlock.position)
+        else if(player.transform.position.x <= startBlock.transform.position.x + 0.5f && player.transform.position.x >= startBlock.transform.position.x - 0.75f
+                    && player.transform.position.y <= startBlock.transform.position.y + 0.5f && player.transform.position.y >= startBlock.transform.position.y - 0.75f)
         {
 
         }
         else
         {
             bool fellOff = true;
+
             foreach (GameObject o in groundList)
             {
-                if(player.transform.position == o.transform.position)
+                if(player.transform.position.x <= o.transform.position.x + 0.75f && player.transform.position.x >= o.transform.position.x - 0.75f
+                    && player.transform.position.y <= o.transform.position.y + 0.75f && player.transform.position.y >= o.transform.position.y - 0.75f)
                 {
                     fellOff = false;
                     canLoseLevel = true;
@@ -107,7 +111,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + level;
         highscoreText.text = "HighScore: " + PlayerPrefs.GetInt("HighScore");
 
-        player.GetComponent<Movement>().enabled = false;
+        //player.GetComponent<Movement>().enabled = false;
     }
 
     private void NewLevel()
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour
         }
         groundList = new List<GameObject>();
 
-        timeLeft = 5;
+        timeLeft = 8;
 
         player.position = startBlock.position;
 
@@ -127,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         int curHeight = 0;
 
-        for(int i = 0; i < 30; i++)
+        for(int i = 0; i < 80; i++)
         {
             int rand = UnityEngine.Random.Range(0, 3); // 0 is up, 1 is right, 2 is down
 
